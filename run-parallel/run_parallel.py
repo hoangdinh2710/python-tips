@@ -15,7 +15,7 @@ def run_parallel():
 	pool.map(print_range, list_ranges)
 
 # Driver code 
-if __name__ == '__main__': 
+if __name__ == '__main__':
 	run_parallel()
 
 # Run a function with different parameters with more than 1 args
@@ -31,6 +31,7 @@ for x, y in [[1, 1], [2, 2]]:
 
 # Driver code 
 if __name__ == '__main__': 
+	freeze_support()
 	run_parallel()
 
 # Difference between map, apply,starmap
