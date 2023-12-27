@@ -8,6 +8,9 @@ env = environ.Env()
 environ.Env.read_env()
 
 def generate_log(table_name,log_message, object_name):
+    """
+    Generate log message in a table in MSSQL using insert query
+    """
     # Define value
     server_name = env('SERVER_NAME')
     database_name = env('DATABASE_NAME')

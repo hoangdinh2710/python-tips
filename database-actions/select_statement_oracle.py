@@ -1,5 +1,7 @@
 import environ
+import sqlalchemy
 from sqlalchemy import text
+import pandas as pd
 import oracledb
 from sqlalchemy import create_engine
 
@@ -7,9 +9,9 @@ from sqlalchemy import create_engine
 env = environ.Env()
 environ.Env.read_env()
 
-def execute_query():
+def select_query():
     """
-    Execute a SQL query in Oracle db
+    Run a select statement in Oracle and return as dataframe
     """
     # Get oracle client for thick connection
     oracledb.init_oracle_client()
@@ -26,10 +28,11 @@ def execute_query():
         f'oracle+oracledb://{db_username}:{db_password}@{host}:{port}/?service_name={service_name}')
 
     # Define SQL Query
-    sql_query = text(f'''
-        STATEMENT
+    sql_query = text('''
+        SELECT * FROM TABLE A
     ''')
 
-    # Execute a raw SQL statement (other than select statement)
-    with engine.begin() as conn:
-        conn.execute(sql_query)
+    # Execute query and save to Pandas dataframe
+    df = pd.read_sql(sql_query,engine)
+
+    return df

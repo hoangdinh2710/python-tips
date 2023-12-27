@@ -7,7 +7,10 @@ import pandas as pd
 env = environ.Env()
 environ.Env.read_env()
 
-def execute_query():
+def select_query():
+    """
+    Run a select statement in MSSQL and return as dataframe
+    """
     # Define value
     server_name = env('SERVER_NAME')
     database_name = env('DATABASE_NAME')
@@ -17,14 +20,11 @@ def execute_query():
   
     # Execute merge statement
     sql_query = text('''
-        SELECT * FROM TABLE A
+        SELECT STATEMENT
         )
         ''')
 
-    # Execute a raw SQL statement (other than select statement)
-    with engine.begin() as conn:
-        conn.execute(sql_query)
-
-    # Execute select statement and save to Pandas dataframe
+     # Execute query and save to Pandas dataframe
     df = pd.read_sql(sql_query,engine)
 
+    return df
